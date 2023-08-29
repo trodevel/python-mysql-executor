@@ -29,15 +29,15 @@ db.logger = create_timed_rotating_logger( "logs/db", "db" )
 
 def test_01():
 
-    db = db.DB()
+    dbe = db.DB()
 
 ##########################################################
 
 def test_02():
 
-    db = db.DB()
+    dbe = db.DB()
 
-    db.execute_query( "create_table_users.sql" )
+    dbe.execute_query( "create_table_users.sql" )
 
 ##########################################################
 
