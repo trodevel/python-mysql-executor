@@ -34,21 +34,21 @@ class DB:
 
     def execute_query_from_file( self, filename: str, template_params: dict = [] ):
 
-        sql_commands = self._load_query( filename, template_params )
+        sql_commands = self._load_sql_commands( filename, template_params )
 
-        return self._auto_execute_query( sql_commands )
+        return self._auto_execute_sql_commands( sql_commands )
 
     def execute_query( self, query_template: str, template_params: dict = [] ):
 
-        sql_command = self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
+        sql_commands = self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
 
-        return self._auto_execute_query( sql_commands )
+        return self._auto_execute_sql_commands( sql_commands )
 
-    def _auto_execute_query( self, sql_commands ):
+    def _auto_execute_sql_commands( self, sql_commands ):
 
         self.cnx = connect_db()
 
-        res = self._execute_query( sql_commands )
+        res = self._execute_sql_commands( sql_commands )
 
         self.cnx.close()
 
@@ -95,17 +95,17 @@ class DB:
 
         return filename
 
-    def _load_query( self, filename_raw: str, template_params: dict ):
+    def _load_sql_commands( self, filename_raw: str, template_params: dict ):
 
-        logger.debug( f"load_query: {filename_raw}" )
+        logger.debug( f"load_sql_commands: {filename_raw}" )
 
         filename = DB._adjust_filename( filename_raw )
 
-        return self._load_query_adjusted( filename, template_params )
+        return self._load_sql_commands_adjusted( filename, template_params )
 
-    def _load_query_adjusted( self, filename: str, template_params: dict ):
+    def _load_sql_commands_adjusted( self, filename: str, template_params: dict ):
 
-        logger.debug( f"load_query_adjusted: {filename}" )
+        logger.debug( f"load_sql_commands_adjusted: {filename}" )
 
         query_template = open( filename, "r" ).read()
 
@@ -131,13 +131,13 @@ class DB:
                 first_word = c.split()[0].lower()
                 if first_word == "source":
                     filename = c.split()[1]
-                    res += self._load_query( filename, template_params )
+                    res += self._load_sql_commands( filename, template_params )
                 else:
                     res.append( c )
 
         return res
 
-    def _execute_query( self, sql_commands ):
+    def _execute_sql_commands( self, sql_commands ):
 
         data = []
 
@@ -154,9 +154,9 @@ class DB:
                     for v in result:
                         data.append( v )
             except IOError as e:
-                logger.error( "execute_query: command skipped: {}, error {}".format( c, e ) )
+                logger.error( "execute_sql_commands: command skipped: {}, error {}".format( c, e ) )
             except Exception as e:
-                logger.error( "execute_query: command skipped: {}, error {}".format( c, e ) )
+                logger.error( "execute_sql_commands: command skipped: {}, error {}".format( c, e ) )
 
         self.cnx.commit()
 
