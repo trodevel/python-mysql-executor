@@ -1,0 +1,5 @@
+USER="user"
+PASSWORD="12345"
+HOST="127.0.0.1"
+MYDB="test_db"
+SQL_PATH="."
