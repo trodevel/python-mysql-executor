@@ -27,6 +27,17 @@ db.logger = create_timed_rotating_logger( "logs/db", "db" )
 
 ##########################################################
 
+def dump_res( name: str, res ):
+
+    print( f"{name}: ", end="" )
+
+    for s in res:
+        print( f"{s}, ", end="" )
+
+    print
+
+##########################################################
+
 def test_01():
 
     dbe = db.DB()
@@ -37,7 +48,9 @@ def test_02():
 
     dbe = db.DB()
 
-    dbe.execute_query_from_file( "create_table_users.sql" )
+    res = dbe.execute_query_from_file( "create_table_users.sql" )
+
+    dump_res( "test_02", res )
 
 ##########################################################
 
