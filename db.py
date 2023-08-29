@@ -75,7 +75,7 @@ class DB:
         return res
 
 
-    def _cleanup_and_include_source_to_sql( self.query ):
+    def _cleanup_and_include_source_to_sql( self, query ):
 
         sql_commands = tokenize.tokenize( query, ';' )
 
