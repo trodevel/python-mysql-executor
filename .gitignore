@@ -161,3 +161,4 @@ cython_debug/
 
 externals/
 logs/
+db_config.py
