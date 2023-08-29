@@ -56,7 +56,7 @@ class DB:
 
     def _replace_params( query: str, template_params: dict ) -> str:
 
-        if len( template_param ) == 0:
+        if len( template_params ) == 0:
             return query
 
         res = query
