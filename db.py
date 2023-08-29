@@ -95,9 +95,11 @@ class DB:
 
         return filename
 
-    def _load_query( filename ):
+    def _load_query( filename_raw: str ):
 
-        logger.debug( "load_query: {}".format( filename ) )
+        filename = DB._adjust_filename( filename_raw )
+
+        logger.debug( f"load_query: {filename_raw} ({filename})" )
 
         query = open( filename, "r" ).read()
 
