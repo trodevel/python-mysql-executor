@@ -32,6 +32,12 @@ class DB:
 
     cnx     = None
 
+    def execute_query_from_file( self, filename ):
+
+        query = open( filename, "r" ).read()
+
+        return self.execute_query( query )
+
     def execute_query( self, query ):
 
         self.cnx = connect_db()
