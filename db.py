@@ -32,23 +32,23 @@ class DB:
 
     cnx     = None
 
-    def execute_query_from_file( self, filename: str ):
+    def execute_query_from_file( self, filename: str, template_params: dict = [] ):
 
-        query_template = open( filename, "r" ).read()
+        sql_commands = self._load_query( filename, template_params )
 
-        return self._auto_execute_query( query_template, template_params )
+        return self._auto_execute_query( sql_commands )
 
     def execute_query( self, query_template: str, template_params: dict = [] ):
 
-        return self._auto_execute_query( query_template, template_params )
+        sql_command = self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
 
-    def _auto_execute_query( self, query_template: str, template_params: dict ):
+        return self._auto_execute_query( sql_commands )
+
+    def _auto_execute_query( self, sql_commands ):
 
         self.cnx = connect_db()
 
-        query = DB._replace_params( query_template, template_params )
-
-        res = self._execute_query( query )
+        res = self._execute_query( sql_commands )
 
         self.cnx.close()
 
@@ -95,20 +95,31 @@ class DB:
 
         return filename
 
-    def _load_query( filename_raw: str ):
+    def _load_query( self, filename_raw: str, template_params: dict ):
+
+        logger.debug( f"load_query: {filename_raw}" )
 
         filename = DB._adjust_filename( filename_raw )
 
-        logger.debug( f"load_query: {filename_raw} ({filename})" )
+        return self._load_query_adjusted( filename, template_params )
 
-        query = open( filename, "r" ).read()
+    def _load_query_adjusted( self, filename: str, template_params: dict ):
 
-        res = _cleanup_and_include_source_to_sql( query )
+        logger.debug( f"load_query_adjusted: {filename}" )
+
+        query_template = open( filename, "r" ).read()
+
+        return self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
+
+    def _init_template_and_cleanup_and_include_source_to_sql( self, query_template: str, template_params: dict ):
+
+        query = DB._replace_params( query_template, template_params )
+
+        res = self._cleanup_and_include_source_to_sql( query, template_params )
 
         return res
 
-
-    def _cleanup_and_include_source_to_sql( self, query ):
+    def _cleanup_and_include_source_to_sql( self, query, template_params ):
 
         sql_commands = tokenize.tokenize( query, ';' )
 
@@ -120,15 +131,13 @@ class DB:
                 first_word = c.split()[0].lower()
                 if first_word == "source":
                     filename = c.split()[1]
-                    res += self._load_query( filename )
+                    res += self._load_query( filename, template_params )
                 else:
                     res.append( c )
 
         return res
 
-    def _execute_query( self, query ):
-
-        sql_commands = self._cleanup_and_include_source_to_sql( query )
+    def _execute_query( self, sql_commands ):
 
         data = []
 
