@@ -46,7 +46,7 @@ class DB:
 
     def _auto_execute_sql_commands( self, sql_commands ):
 
-        self.connect_db()
+        self._connect_db()
 
         res = self._execute_sql_commands( sql_commands )
 
