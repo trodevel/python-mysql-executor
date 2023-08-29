@@ -63,7 +63,7 @@ class DB:
 
         for k, v in template_params.items():
             res = res.replace( f'%{k}%', str( v ) )
-            logger.debug( f"replace_param: %{k}% -> {v}" )
+            #logger.debug( f"replace_param: %{k}% -> {v}" )
 
         return res
 
