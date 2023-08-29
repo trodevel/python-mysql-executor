@@ -62,7 +62,7 @@ class DB:
         res = query
 
         for k, v in template_params.items():
-            res.replace( f'%{k}%', str( v ) )
+            res = res.replace( f'%{k}%', str( v ) )
             logger.debug( f"replace_param: %{k}% -> {v}" )
 
         return res
