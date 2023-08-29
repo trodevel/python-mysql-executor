@@ -115,6 +115,8 @@ class DB:
 
         query = DB._replace_params( query_template, template_params )
 
+        logger.debug( f"query: {query}" )
+
         res = self._cleanup_and_include_source_to_sql( query, template_params )
 
         return res
