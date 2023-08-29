@@ -143,6 +143,8 @@ class DB:
 
         cursor = self.cnx.cursor()
 
+        self.cnx.commit()
+
         for command in sql_commands:
             try:
                 c = command.strip()
@@ -151,8 +153,10 @@ class DB:
                     cursor.execute( c )
                     result = cursor.fetchall()
                     #print( "DEBUG: command: '{}' res size {}".format( c, len( result ) ) )
+                    row = []
                     for v in result:
-                        data.append( v )
+                        row.append( v )
+                    data.append( row )
             except IOError as e:
                 logger.error( "execute_sql_commands: command skipped: {}, error {}".format( c, e ) )
             except Exception as e:
