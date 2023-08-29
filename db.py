@@ -48,6 +48,28 @@ class DB:
 
         return res
 
+    def _auto_execute_query( self, query, template_params: dict ):
+
+        self.cnx = connect_db()
+
+        res = self._execute_query( query )
+
+        self.cnx.close()
+
+        return res
+
+    def _replace_params( query: str, template_params: dict ) -> str:
+
+        if len( template_param ) == 0:
+            return query
+
+        res = query
+
+        for k, v in template_params.items():
+            res.replace( f'%{k}%', str( v ) )
+
+        return res
+
     def _connect_db(self):
 
         try:
