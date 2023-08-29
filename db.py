@@ -46,7 +46,7 @@ class DB:
 
     def _auto_execute_sql_commands( self, sql_commands ):
 
-        self.cnx = connect_db()
+        self.connect_db()
 
         res = self._execute_sql_commands( sql_commands )
 
@@ -66,7 +66,7 @@ class DB:
 
         return res
 
-    def _connect_db(self):
+    def _connect_db(self) -> None:
 
         try:
             self.cnx = mysql.connector.connect(
