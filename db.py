@@ -156,6 +156,8 @@ class DB:
                     cursor.execute( c )
                     result = cursor.fetchall()
                     #print( "DEBUG: command: '{}' res size {}".format( c, len( result ) ) )
+                    if len( result ) == 0:
+                        continue
                     row = []
                     for v in result:
                         row.append( v )
