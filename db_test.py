@@ -20,6 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
+import random
 import db
 from externals.aux_logger.aux_logger import create_timed_rotating_logger
 
@@ -58,9 +59,21 @@ def test_03():
 
     dbe = db.DB()
 
-    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRST_NAME": "Test", "LAST_NAME": "User", "QUERY_DEBUG", 0 } )
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRST_NAME": "Test", "LAST_NAME": "User", "QUERY_DEBUG": 0 } )
 
     dump_res( "test_03", res )
+
+##########################################################
+
+def test_04():
+
+    dbe = db.DB()
+
+    id = random.randint( 1, 100 )
+
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRST_NAME": f"Test_{id}", "LAST_NAME": f"User_{id}", "QUERY_DEBUG": 0 } )
+
+    dump_res( "test_04", res )
 
 ##########################################################
 
@@ -69,6 +82,7 @@ def test():
     test_01()
     test_02()
     test_03()
+    test_04()
 
 ##########################################################
 
