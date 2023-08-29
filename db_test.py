@@ -21,9 +21,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import db
-import externals.aux_logger.aux_logger
+from externals.aux_logger.aux_logger import create_timed_rotating_logger
 
-db.logger = aux_logger.create_timed_rotating_logger( "logs/db", "db" )
+db.logger = create_timed_rotating_logger( "logs/db", "db" )
 
 ##########################################################
 
