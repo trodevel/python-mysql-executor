@@ -37,7 +37,7 @@ def test_02():
 
     dbe = db.DB()
 
-    dbe.execute_query( "create_table_users.sql" )
+    dbe.execute_query_from_file( "create_table_users.sql" )
 
 ##########################################################
 
