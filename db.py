@@ -32,25 +32,21 @@ class DB:
 
     cnx     = None
 
-    def execute_query_from_file( self, filename ):
+    def execute_query_from_file( self, filename: str ):
 
-        query = open( filename, "r" ).read()
+        query_template = open( filename, "r" ).read()
 
-        return self.execute_query( query )
+        return self._auto_execute_query( query_template, template_params )
 
-    def execute_query( self, query ):
+    def execute_query( self, query_template: str, template_params: dict = [] ):
 
-        self.cnx = connect_db()
+        return self._auto_execute_query( query_template, template_params )
 
-        res = self._execute_query( query )
-
-        self.cnx.close()
-
-        return res
-
-    def _auto_execute_query( self, query, template_params: dict ):
+    def _auto_execute_query( self, query_template: str, template_params: dict ):
 
         self.cnx = connect_db()
+
+        query = DB._replace_params( query_template, template_params )
 
         res = self._execute_query( query )
 
