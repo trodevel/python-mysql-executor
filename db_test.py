@@ -81,9 +81,21 @@ def test_05():
 
     dbe = db.DB()
 
-    res = dbe.execute_query_from_file( "show_table_users.sql" )
+    id = random.randint( 1, 100 )
+
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRST_NAME": f"Test_{id}", "LAST_NAME": f"User_{id}", "QUERY_DEBUG": 1 } )
 
     dump_res( "test_05", res )
+
+##########################################################
+
+def test_06():
+
+    dbe = db.DB()
+
+    res = dbe.execute_query_from_file( "show_table_users.sql" )
+
+    dump_res( "test_06", res )
 
 ##########################################################
 
@@ -94,6 +106,7 @@ def test():
     test_03()
     test_04()
     test_05()
+    test_06()
 
 ##########################################################
 
