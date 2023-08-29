@@ -34,7 +34,7 @@ def dump_res( name: str, res ):
     for s in res:
         print( f"{s}, ", end="" )
 
-    print
+    print()
 
 ##########################################################
 
@@ -54,10 +54,21 @@ def test_02():
 
 ##########################################################
 
+def test_03():
+
+    dbe = db.DB()
+
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRST_NAME": "Test", "LAST_NAME": "User", "QUERY_DEBUG", 0 } )
+
+    dump_res( "test_03", res )
+
+##########################################################
+
 def test():
 
     test_01()
     test_02()
+    test_03()
 
 ##########################################################
 
