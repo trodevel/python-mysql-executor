@@ -39,9 +39,19 @@ def dump_res( name: str, res ):
 
 ##########################################################
 
+def test_00():
+
+    dbe = db.DB()
+
+##########################################################
+
 def test_01():
 
     dbe = db.DB()
+
+    res = dbe.execute_query_from_file( "drop_table_users.sql" )
+
+    dump_res( "test_01", res )
 
 ##########################################################
 
@@ -101,6 +111,7 @@ def test_06():
 
 def test():
 
+    test_00()
     test_01()
     test_02()
     test_03()
