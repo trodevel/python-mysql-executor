@@ -88,6 +88,13 @@ class DB:
         else:
             self.cnx.get_warnings = True
 
+    def _adjust_filename( filename: str ) -> str:
+
+        if db_config.SQL_PATH:
+            return db_config.SQL_PATH + "/" + filename
+
+        return filename
+
     def _load_query( filename ):
 
         logger.debug( "load_query: {}".format( filename ) )
