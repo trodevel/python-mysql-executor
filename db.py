@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-DB.
+Python MySQL Executor.
 
 Copyright (C) 2023 Dr. Sergey Kolevatov
 
