@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import random
 import db
+import db_config
 from externals.aux_logger.aux_logger import create_timed_rotating_logger
 
 db.logger = create_timed_rotating_logger( "logs/db", "db" )
@@ -39,6 +40,11 @@ def dump_res( name: str, res ):
 
 ##########################################################
 
+def my_db()
+    return db.DB( db_config.USER, db_config.PASSWORD, db_config.HOST, db_config.MYDB )
+
+##########################################################
+
 def test_00():
 
     dbe = db.DB()
@@ -47,7 +53,7 @@ def test_00():
 
 def test_01():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     res = dbe.execute_query_from_file( "drop_table_users.sql" )
 
@@ -57,7 +63,7 @@ def test_01():
 
 def test_02():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     res = dbe.execute_query_from_file( "create_table_users.sql" )
 
@@ -67,7 +73,7 @@ def test_02():
 
 def test_03():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRSTNAME": "Test", "LASTNAME": "User", "QUERY_DEBUG": 0 } )
 
@@ -77,7 +83,7 @@ def test_03():
 
 def test_04():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     id = random.randint( 1, 100 )
 
@@ -89,7 +95,7 @@ def test_04():
 
 def test_05():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     id = random.randint( 1, 100 )
 
@@ -101,7 +107,7 @@ def test_05():
 
 def test_06():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     res = dbe.execute_query_from_file( "show_table_users.sql" )
 
@@ -111,7 +117,7 @@ def test_06():
 
 def test_07():
 
-    dbe = db.DB()
+    dbe = my_db()
 
     res = dbe.execute_query_from_file( "show_table_users_as_json.sql" )
 
