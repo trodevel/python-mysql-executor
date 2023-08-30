@@ -49,7 +49,7 @@ class MyLogger:
             return
         self._logger.debug( v )
 
-logger = MyLogger
+logger = MyLogger()
 
 class DB:
 
