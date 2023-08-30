@@ -51,6 +51,10 @@ class MyLogger:
 
 logger = MyLogger()
 
+def set_logger( l ):
+    global logger
+    logger.set_logger( l )
+
 class DB:
 
     cnx     = None
