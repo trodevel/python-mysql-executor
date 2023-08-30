@@ -23,7 +23,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import mysql.connector
 from mysql.connector import errorcode
 
-import db_config
 import tokenize
 
 logger  = None
@@ -31,6 +30,12 @@ logger  = None
 class DB:
 
     cnx     = None
+
+    def __init__(self, user: str, password: str, host: str, db: str ):
+        self.user = user
+        self.password = password
+        self.host = host
+        self.db = db
 
     def execute_query_from_file( self, filename: str, template_params: dict = [] ):
 
@@ -71,10 +76,10 @@ class DB:
 
         try:
             self.cnx = mysql.connector.connect(
-                user=db_config.USER,
-                password=db_config.PASSWORD,
-                host=db_config.HOST,
-                db=db_config.MYDB )
+                user=self.user,
+                password=self.password,
+                host=self.host,
+                db=self.db )
 
         except mysql.connector.Error as err:
           if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
