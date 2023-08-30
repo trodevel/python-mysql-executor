@@ -31,11 +31,12 @@ class DB:
 
     cnx     = None
 
-    def __init__(self, user: str, password: str, host: str, db: str ):
+    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str ):
         self.user = user
         self.password = password
         self.host = host
         self.db = db
+        self.sql_path = sql_path
 
     def execute_query_from_file( self, filename: str, template_params: dict = [] ):
 
@@ -94,10 +95,10 @@ class DB:
         else:
             self.cnx.get_warnings = True
 
-    def _adjust_filename( filename: str ) -> str:
+    def _adjust_filename( self, filename: str ) -> str:
 
-        if db_config.SQL_PATH:
-            return db_config.SQL_PATH + "/" + filename
+        if self.sql_path:
+            return self.sql_path + "/" + filename
 
         return filename
 
