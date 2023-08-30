@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import mysql.connector
 from mysql.connector import errorcode
 
-import tokenize
+from python_mysql_executor.tokenize import tokenize
 
 class MyLogger:
     _logger = None
@@ -158,7 +158,7 @@ class DB:
 
     def _cleanup_and_include_source_to_sql( self, query, template_params ):
 
-        sql_commands = tokenize.tokenize( query, ';' )
+        sql_commands = tokenize( query, ';' )
 
         res = []
 
