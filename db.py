@@ -25,7 +25,31 @@ from mysql.connector import errorcode
 
 import tokenize
 
-logger  = None
+class MyLogger:
+    _logger = None
+
+    def __init__( self ):
+        self._logger = None
+
+    def set_logger( self, logger ):
+        self._logger = logger
+
+    def critical( self, v ):
+        if not self._logger:
+            return
+        self._logger.critical( v )
+
+    def error( self, v ):
+        if not self._logger:
+            return
+        self._logger.error( v )
+
+    def debug( self, v ):
+        if not self._logger:
+            return
+        self._logger.debug( v )
+
+logger = MyLogger
 
 class DB:
 
