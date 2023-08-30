@@ -25,7 +25,7 @@ import db
 import db_config
 from externals.aux_logger.aux_logger import create_timed_rotating_logger
 
-db.logger = create_timed_rotating_logger( "logs/db", "db" )
+db.logger.set_logger( create_timed_rotating_logger( "logs/db", "db" ) )
 
 ##########################################################
 
