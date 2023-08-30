@@ -41,7 +41,7 @@ def dump_res( name: str, res ):
 ##########################################################
 
 def my_db():
-    return db.DB( db_config.USER, db_config.PASSWORD, db_config.HOST, db_config.MYDB )
+    return db.DB( db_config.USER, db_config.PASSWORD, db_config.HOST, db_config.MYDB, db_config.SQL_PATH )
 
 ##########################################################
 
