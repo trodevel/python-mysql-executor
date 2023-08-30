@@ -106,7 +106,7 @@ class DB:
 
         logger.debug( f"load_sql_commands: {filename_raw}" )
 
-        filename = DB._adjust_filename( filename_raw )
+        filename = self._adjust_filename( filename_raw )
 
         return self._load_sql_commands_adjusted( filename, template_params )
 
