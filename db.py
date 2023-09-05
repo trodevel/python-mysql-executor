@@ -97,7 +97,7 @@ class DB:
             return "null"
 
         if type(s) is str:
-            return f"'s'"
+            return f"'{s}'"
 
         return str( s )
 
