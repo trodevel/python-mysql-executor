@@ -75,7 +75,7 @@ def test_03():
 
     dbe = my_db()
 
-    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRSTNAME": "Test", "LASTNAME": "User", "QUERY_DEBUG": 0 } )
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": 1, "FIRSTNAME": "Test", "LASTNAME": "User" } )
 
     dump_res( "test_03", res )
 
@@ -87,7 +87,7 @@ def test_04():
 
     id = random.randint( 1, 100 )
 
-    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRSTNAME": f"Test_{id}", "LASTNAME": f"User_{id}", "QUERY_DEBUG": 0 } )
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRSTNAME": f"Test_{id}", "LASTNAME": f"User_{id}" } )
 
     dump_res( "test_04", res )
 
@@ -99,7 +99,7 @@ def test_05():
 
     id = random.randint( 1, 100 )
 
-    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRSTNAME": f"Test_{id}", "LASTNAME": f"User_{id}", "QUERY_DEBUG": 1 } )
+    res = dbe.execute_query_from_file( "tmpl_add_user.sql", { "ID": id, "FIRSTNAME": f"Test_{id}", "LASTNAME": f"User_{id}" } )
 
     dump_res( "test_05", res )
 
