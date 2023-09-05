@@ -70,13 +70,13 @@ class DB:
     def set_query_debug( self, v: bool ) -> None:
         self.is_query_debug = v
 
-    def execute_query_from_file( self, filename: str, template_params: dict = [] ):
+    def execute_query_from_file( self, filename: str, template_params: dict = {} ):
 
         sql_commands = self._load_sql_commands( filename, template_params )
 
         return self._auto_execute_sql_commands( sql_commands )
 
-    def execute_query( self, query_template: str, template_params: dict = [] ):
+    def execute_query( self, query_template: str, template_params: dict = {} ):
 
         sql_commands = self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
 
