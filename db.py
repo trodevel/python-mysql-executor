@@ -89,9 +89,13 @@ class DB:
         return res
 
     def _prepare_value( s ) -> str:
-        if s:
-            return str( s )
-        return "null"
+        if not s:
+            return "null"
+
+        if type(s) is str:
+            return f"'s'"
+
+        return str( s )
 
     def _replace_params( query: str, template_params: dict ) -> str:
 
