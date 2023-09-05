@@ -96,10 +96,7 @@ class DB:
         if s is None:
             return "null"
 
-        if type(s) in [ bool, int, float ]:
-            return str( s )
-
-        return f"'{s}'"
+        return str( s )
 
     def _replace_params( query: str, template_params: dict ) -> str:
 
