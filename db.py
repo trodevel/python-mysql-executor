@@ -65,6 +65,10 @@ class DB:
         self.host = host
         self.db = db
         self.sql_path = sql_path
+        self.is_query_debug = False
+
+    def set_query_debug( self, v: bool ) -> None:
+        self.is_query_debug = v
 
     def execute_query_from_file( self, filename: str, template_params: dict = [] ):
 
