@@ -88,6 +88,11 @@ class DB:
 
         return res
 
+    def _none_to_null( s ) -> str:
+        if s:
+            return str( s )
+        return "null"
+
     def _replace_params( query: str, template_params: dict ) -> str:
 
         if len( template_params ) == 0:
@@ -96,7 +101,7 @@ class DB:
         res = query
 
         for k, v in template_params.items():
-            res = res.replace( f'%{k}%', str( v ) )
+            res = res.replace( f'%{k}%', DB._none_to_null( v ) )
             #logger.debug( f"replace_param: %{k}% -> {v}" )
 
         return res
