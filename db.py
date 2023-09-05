@@ -159,7 +159,14 @@ class DB:
 
         return self._init_template_and_cleanup_and_include_source_to_sql( query_template, template_params )
 
-    def _init_template_and_cleanup_and_include_source_to_sql( self, query_template: str, template_params: dict ):
+    def _add_aux_params( self, template_params: dict ) -> dict:
+        res = template_params
+        res['QUERY_DEBUG'] = self.is_query_debug
+        return res
+
+    def _init_template_and_cleanup_and_include_source_to_sql( self, query_template: str, template_params_in: dict ):
+
+        template_params = self._add_aux_params( template_params_in )
 
         query = DB._replace_params( query_template, template_params )
 
