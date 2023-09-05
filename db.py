@@ -88,7 +88,7 @@ class DB:
 
         return res
 
-    def _none_to_null( s ) -> str:
+    def _prepare_value( s ) -> str:
         if s:
             return str( s )
         return "null"
@@ -101,7 +101,7 @@ class DB:
         res = query
 
         for k, v in template_params.items():
-            res = res.replace( f'%{k}%', DB._none_to_null( v ) )
+            res = res.replace( f'%{k}%', DB._prepare_value( v ) )
             #logger.debug( f"replace_param: %{k}% -> {v}" )
 
         return res
