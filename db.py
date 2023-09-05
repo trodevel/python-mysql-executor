@@ -93,7 +93,7 @@ class DB:
         return res
 
     def _prepare_value( s ) -> str:
-        if not s:
+        if s in None:
             return "null"
 
         if type(s) is str:
