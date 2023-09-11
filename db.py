@@ -24,6 +24,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 from python_mysql_executor.tokenize import tokenize
+from python_mysql_executor.prepare_value import prepare_value
 
 class MyLogger:
     _logger = None
@@ -92,12 +93,6 @@ class DB:
 
         return res
 
-    def _prepare_value( s ) -> str:
-        if s is None:
-            return "null"
-
-        return str( s )
-
     def _replace_params( query: str, template_params: dict ) -> str:
 
         if len( template_params ) == 0:
@@ -106,7 +101,7 @@ class DB:
         res = query
 
         for k, v in template_params.items():
-            res = res.replace( f'%{k}%', DB._prepare_value( v ) )
+            res = res.replace( f'%{k}%', prepare_value( v ) )
             #logger.debug( f"replace_param: %{k}% -> {v}" )
 
         return res
