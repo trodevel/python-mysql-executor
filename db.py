@@ -25,7 +25,7 @@ from mysql.connector import errorcode
 
 from python_mysql_executor.tokenize import tokenize
 from python_mysql_executor.prepare_value import prepare_value
-from python_mysql_executor.exceptions import IOErrorException, RuntimeError
+from python_mysql_executor.exceptions import IOErrorException, RuntimeException
 
 class MyLogger:
     _logger = None
