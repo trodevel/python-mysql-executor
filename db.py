@@ -25,6 +25,7 @@ from mysql.connector import errorcode
 
 from python_mysql_executor.tokenize import tokenize
 from python_mysql_executor.prepare_value import prepare_value
+from python_mysql_executor.exceptions import IOErrorException, RuntimeError
 
 class MyLogger:
     _logger = None
@@ -210,8 +211,10 @@ class DB:
                     data.append( row )
             except IOError as e:
                 logger.error( "execute_sql_commands: command skipped: {}, error {}".format( c, e ) )
+                raise IOErrorException( f"command {c}, error {e}" )
             except Exception as e:
                 logger.error( "execute_sql_commands: command skipped: {}, error {}".format( c, e ) )
+                raise RuntimeException( f"command {c}, error {e}" )
 
         self.cnx.commit()
 
