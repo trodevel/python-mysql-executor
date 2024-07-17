@@ -61,7 +61,7 @@ class DB:
 
     cnx     = None
 
-    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str, should_quit_on_error: bool = True):
+    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str, should_quit_on_error: bool = False):
         self.user = user
         self.password = password
         self.host = host
