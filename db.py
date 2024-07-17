@@ -61,13 +61,14 @@ class DB:
 
     cnx     = None
 
-    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str ):
+    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str, should_quit_on_error: bool = True):
         self.user = user
         self.password = password
         self.host = host
         self.db = db
         self.sql_path = sql_path
         self.is_query_debug = False
+        self.should_quit_on_error = should_quit_on_error
 
     def set_query_debug( self, v: bool ) -> None:
         self.is_query_debug = v
