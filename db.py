@@ -120,13 +120,16 @@ class DB:
         except mysql.connector.Error as err:
           if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             logger.critical("Something is wrong with your user name or password")
-            quit() if self.should_quit_on_error else raise IOErrorException( "Something is wrong with your user name or password" )
+            if self.should_quit_on_error: quit()
+            raise IOErrorException( "Something is wrong with your user name or password" )
           elif err.errno == errorcode.ER_BAD_DB_ERROR:
             logger.critical("Database does not exist")
-            quit() if self.should_quit_on_error else raise IOErrorException( "Database does not exist" )
+            if self.should_quit_on_error: quit()
+            raise IOErrorException( "Database does not exist" )
           else:
             logger.critical(err)
-            quit() if self.should_quit_on_error else raise RuntimeError( err )
+            if self.should_quit_on_error: quit()
+            raise RuntimeError( err )
         else:
             self.cnx.get_warnings = True
 
