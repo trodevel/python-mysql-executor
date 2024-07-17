@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 externals/
-logs/
+test/logs/
 db_config.py
