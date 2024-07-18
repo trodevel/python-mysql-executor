@@ -61,13 +61,14 @@ class DB:
 
     cnx     = None
 
-    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str ):
+    def __init__(self, user: str, password: str, host: str, db: str, sql_path: str, must_quit_on_error: bool = False):
         self.user = user
         self.password = password
         self.host = host
         self.db = db
         self.sql_path = sql_path
         self.is_query_debug = False
+        self.must_quit_on_error = must_quit_on_error
 
     def set_query_debug( self, v: bool ) -> None:
         self.is_query_debug = v
@@ -119,13 +120,16 @@ class DB:
         except mysql.connector.Error as err:
           if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             logger.critical("Something is wrong with your user name or password")
-            quit()
+            if self.must_quit_on_error: quit()
+            raise IOErrorException( "Something is wrong with your user name or password" )
           elif err.errno == errorcode.ER_BAD_DB_ERROR:
             logger.critical("Database does not exist")
-            quit()
+            if self.must_quit_on_error: quit()
+            raise IOErrorException( "Database does not exist" )
           else:
             logger.critical(err)
-            quit()
+            if self.must_quit_on_error: quit()
+            raise RuntimeError( err )
         else:
             self.cnx.get_warnings = True
 
