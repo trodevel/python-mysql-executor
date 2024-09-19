@@ -1,1 +1,3 @@
+# comment
+
 SELECT * FROM users;

@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import mysql.connector
 from mysql.connector import errorcode
+import re
 
 from python_mysql_executor.tokenize import tokenize
 from python_mysql_executor.prepare_value import prepare_value
@@ -173,6 +174,14 @@ class DB:
 
         return res
 
+    @staticmethod
+    def _remove_comments( s: str ) -> str:
+        """Removes comments starting with "^\s*#.*$" regex from a string.
+        """
+
+        # Use the re.sub function to replace all matches of the regex with an empty string
+        return re.sub(r"^\s*#.*$", "", s, flags=re.MULTILINE)
+
     def _cleanup_and_include_source_to_sql( self, query, template_params ):
 
         sql_commands = tokenize( query, ';' )
@@ -180,7 +189,12 @@ class DB:
         res = []
 
         for command in sql_commands:
-            c = command.strip()
+            cc = command.strip()
+
+            c = DB._remove_comments(cc)
+
+            #print( f"DEBUG: cc '{cc}' -> c '{c}'" )
+
             if c != '':
                 first_word = c.split()[0].lower()
                 if first_word == "source":
