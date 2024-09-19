@@ -193,7 +193,7 @@ class DB:
 
             c = DB._remove_comments(cc)
 
-            print( f"DEBUG: cc {cc} -> c{c}" )
+            print( f"DEBUG: cc '{cc}' -> c '{c}'" )
 
             if c != '':
                 first_word = c.split()[0].lower()
