@@ -174,6 +174,7 @@ class DB:
 
         return res
 
+    @staticmethod
     def _remove_comments( s: str ) -> str:
         """Removes comments starting with "^\s*#.*$" regex from a string.
         """
@@ -188,7 +189,12 @@ class DB:
         res = []
 
         for command in sql_commands:
-            c = command.strip()
+            cc = command.strip()
+
+            c = DB._remove_comments(cc)
+
+            print( f"DEBUG: cc {cc} -> c{c}" )
+
             if c != '':
                 first_word = c.split()[0].lower()
                 if first_word == "source":
